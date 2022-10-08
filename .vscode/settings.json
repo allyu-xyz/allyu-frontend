@@ -1,0 +1,61 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.sortImports": true
+  },
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/CVS": false,
+    "**/.DS_Store": false,
+    "**/Thumbs.db": false,
+    "node_modules": false,
+    ".eslintrc.json": false,
+    ".gitignore": false,
+    ".prettierignore": false,
+    ".prettierrc": false,
+    "next-env.d.ts": false,
+    "next.config.js": false,
+    "postcss.config.js": false,
+    "tailwind.config.js": false,
+    "tsconfig.json": false,
+    ".next": false,
+    ".husky": false,
+    ".vscode": false,
+    ".idea": false
+  },
+  "explorerExclude.backup": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "node_modules": true,
+    ".eslintrc.json": true,
+    ".gitignore": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    "next-env.d.ts": true,
+    "next.config.js": true,
+    "postcss.config.js": true,
+    "tailwind.config.js": true,
+    "tsconfig.json": true,
+    ".next": true,
+    ".husky": true,
+    ".vscode": true,
+    ".idea": true
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "cSpell.words": [
+    "esnext",
+    "tailwindcss",
+    "typechain",
+    "typecheck",
+    "wagmi",
+    "Wagmi"
+  ]
+}
