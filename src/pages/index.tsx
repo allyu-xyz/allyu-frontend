@@ -1,6 +1,5 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next'
+import Head from 'next/head'
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +12,7 @@ const Home: NextPage = () => {
 
       <main></main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import FundModal from '../../components/bill/FundModal'
 import RedeemModal from '../../components/bill/RedeemModal'
-import Loading from '../../components/Loading'
 import Button from '../../components/ui/Button'
+import Loading from '../../components/ui/Loading'
 import { Bill, BillStatus } from '../../types/types'
 
 const BillPage: NextPage = () => {

@@ -51,7 +51,9 @@
   },
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "cSpell.words": [
+    "dethcrypto",
     "esnext",
+    "rainbowkit",
     "tailwindcss",
     "typechain",
     "typecheck",
