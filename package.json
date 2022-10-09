@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "typecheck": "tsc --pretty --noEmit",
-    "eth-sdk": "eth-sdk -p ./src/eth-sdk"
+    "eth-sdk": "eth-sdk -p ./src/eth-sdk",
+    "postinstall": "eth-sdk -p ./src/eth-sdk"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.7.1",
