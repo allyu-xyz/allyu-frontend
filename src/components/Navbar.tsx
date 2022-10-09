@@ -15,7 +15,12 @@ export default function Navbar() {
             </div>
           </a>
         </Link>
-        <div>
+        <div className="flex items-center space-x-4">
+          <Link href="/request">
+            <a className="flex h-[42px] items-center justify-center rounded-md bg-white/25 px-4 font-secondary transition-colors duration-200 hover:scale-[1.025] hover:bg-white/30">
+              <span>Request bills</span>
+            </a>
+          </Link>
           <ConnectButton showBalance={false} />
         </div>
       </div>

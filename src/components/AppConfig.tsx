@@ -1,4 +1,4 @@
-import { getDefaultWallets, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { getDefaultWallets, lightTheme, RainbowKitProvider, Theme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { INFURA_ID } from 'config'
 import { ReactElement } from 'react'
@@ -22,10 +22,45 @@ const client = createClient({
   provider
 })
 
+const themeValues = lightTheme({ borderRadius: 'small' })
+
+const customTheme = {
+  ...themeValues,
+  blurs: {
+    ...themeValues.blurs,
+    modalOverlay: 'blur(4px)'
+  },
+  colors: {
+    ...themeValues.colors,
+    accentColor: '#3B8CF0',
+    actionButtonBorder: 'transparent',
+    actionButtonSecondaryBackground: 'transparent',
+    modalTextSecondary: '#B8B3B6',
+    accentColorForeground: '#FEFEFE',
+    modalBackground: '#FEFEFE',
+    modalBorder: 'transparent',
+    modalText: '#000505',
+    modalBackdrop: 'rgba(239, 238, 233, 0.25)',
+    closeButton: '#000505',
+    closeButtonBackground: 'transparent'
+  },
+  fonts: {
+    ...themeValues.fonts,
+    body: 'Londrina Solid, sans-serif'
+  },
+  shadows: {
+    connectButton: 'none',
+    dialog: 'none',
+    profileDetailsAction: 'none',
+    selectedOption: 'none',
+    selectedWallet: 'none',
+    walletLogo: 'none'
+  }
+}
 export default function AppConfig({ children }: { children: ReactElement }) {
   return (
     <WagmiConfig client={client}>
-      <RainbowKitProvider chains={chains} modalSize="compact">
+      <RainbowKitProvider chains={chains} theme={customTheme} modalSize="compact">
         {children}
       </RainbowKitProvider>
     </WagmiConfig>

@@ -97,7 +97,7 @@ const BillPage: NextPage = () => {
       <Head>
         <title>{`Bill #${billId}`}</title>
       </Head>
-      <main className="mb-[80px] flex flex-1 flex-col items-center justify-center">
+      <main className="flex flex-1 flex-col items-center justify-center">
         <div className="container-content max-w-[480px]">
           <div className="grid gap-12">
             <div className="grid items-center gap-8 text-center">
@@ -120,8 +120,18 @@ const BillPage: NextPage = () => {
             <div></div>
           </div>
         </div>
-        <FundModal bill={bill} isOpen={isFundModalOpen} setIsOpen={setIsFundModalOpen} />
-        <RedeemModal bill={bill} isOpen={isRedeemModalOpen} setIsOpen={setIsRedeemModalOpen} />
+        <FundModal
+          bill={bill}
+          setBill={setBill}
+          isOpen={isFundModalOpen}
+          setIsOpen={setIsFundModalOpen}
+        />
+        <RedeemModal
+          bill={bill}
+          setBill={setBill}
+          isOpen={isRedeemModalOpen}
+          setIsOpen={setIsRedeemModalOpen}
+        />
       </main>
     </>
   )

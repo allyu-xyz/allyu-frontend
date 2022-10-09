@@ -8,14 +8,16 @@ import party from 'party-js'
 import type { DynamicSourceType } from 'party-js/lib/systems/sources'
 import { useRef, useState } from 'react'
 import { Bill } from 'types/types'
-import { useAccount } from 'wagmi'
+import { useAccount, useSigner } from 'wagmi'
 
 export default function RedeemModal({
   bill,
+  setBill,
   isOpen,
   setIsOpen
 }: {
   bill: Bill
+  setBill: (bill: Bill) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
@@ -26,7 +28,8 @@ export default function RedeemModal({
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [transaction, setTransaction] = useState<ContractReceipt | undefined>()
-  const { address, isConnected } = useAccount()
+  const { address } = useAccount()
+  const { data: signer } = useSigner()
   const { allyu } = useEthereum()
 
   const handlePublicCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,18 +42,28 @@ export default function RedeemModal({
 
   const handleSubmit = async () => {
     if (!publicCode || !privateCode) return
-    if (!isConnected || !address) {
+    if (!signer || !address) {
       setError('Wallet not connected')
       return
     }
 
     setIsLoading(true)
     setError('')
+
     try {
-      const response = await allyu.redeem(bill.id, privateCode, publicCode, address)
+      const nonce = await signer.getTransactionCount('latest')
+      const { maxFeePerGas, maxPriorityFeePerGas } = await signer.getFeeData()
+      const gasLimit = await allyu.estimateGas.redeem(bill.id, privateCode, publicCode, address)
+      const response = await allyu.redeem(bill.id, privateCode, publicCode, address, {
+        nonce,
+        gasLimit,
+        maxFeePerGas: maxFeePerGas?.add(1000000000),
+        maxPriorityFeePerGas: maxPriorityFeePerGas?.add(1000000000)
+      })
       const tx = await response.wait()
 
       setTransaction(tx)
+      setBill({ ...bill, isRedeemed: true })
       setIsSuccess(true)
       if (containerRef.current) {
         party.confetti(containerRef.current as DynamicSourceType, {

@@ -9,14 +9,16 @@ import type { DynamicSourceType } from 'party-js/lib/systems/sources'
 import { useRef, useState } from 'react'
 import { Bill } from 'types/types'
 import { hash } from 'utils/hash'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, useSigner } from 'wagmi'
 
 export default function FundModal({
   bill,
+  setBill,
   isOpen,
   setIsOpen
 }: {
   bill: Bill
+  setBill: (bill: Bill) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
@@ -28,6 +30,7 @@ export default function FundModal({
   const [isSuccess, setIsSuccess] = useState(false)
   const [transaction, setTransaction] = useState<ContractReceipt | undefined>()
   const { address } = useAccount()
+  const { data: signer } = useSigner()
   const { data: balance } = useBalance({
     addressOrName: address
   })
@@ -40,7 +43,7 @@ export default function FundModal({
 
   const handleSubmit = async () => {
     if (!code) return
-    if (!address) {
+    if (!signer || !address) {
       setError('Wallet not connected')
       return
     }
@@ -55,13 +58,22 @@ export default function FundModal({
     try {
       const codeHash = `0x${hash(code)}`
 
-      await dai.approve(address, bill.value)
+      const balance = await dai.balanceOf(address)
+      const daiRes = await dai.approve(allyu.address, balance)
+      await daiRes.wait()
+
+      const nonce = await signer.getTransactionCount('latest')
+      const { maxFeePerGas, maxPriorityFeePerGas } = await signer.getFeeData()
+      const gasLimit = await allyu.estimateGas.fund(bill.id, bill.value, codeHash)
       const res = await allyu.fund(bill.id, bill.value, codeHash, {
-        gasLimit: 1000000 // todo: remove
+        nonce,
+        gasLimit,
+        maxFeePerGas: maxFeePerGas?.add(1000000000),
+        maxPriorityFeePerGas: maxPriorityFeePerGas?.add(1000000000)
       })
       const transaction = await res.wait()
       setTransaction(transaction)
-
+      setBill({ ...bill, isFunded: true })
       setIsSuccess(true)
       if (containerRef.current) {
         party.confetti(containerRef.current as DynamicSourceType, {
