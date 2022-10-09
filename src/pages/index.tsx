@@ -34,13 +34,13 @@ const Home: NextPage = () => {
             <span className="ml-3 pb-3.5 text-4xl">in crypto-backed cash</span>
           </div>
         </div>
-        <BillsGrid count={count} />
+        <BillsGrid />
       </main>
     </>
   )
 }
 
-const BillsGrid = ({ count }: { count: number }) => {
+const BillsGrid = () => {
   const [randomBills, setRandomBills] = useState<BillValue[][]>([])
   const rows = 6
   const columns = 6

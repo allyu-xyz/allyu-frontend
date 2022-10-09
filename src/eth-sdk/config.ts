@@ -10,9 +10,9 @@ export default defineConfig({
       dai: '0x001B3B4d0F3714Ca98ba10F6042DaEbF0B1B7b6F',
       allyu: '0x12c2c185f8B14006aadE9f8914508C49CE019A84'
     },
-    optimismGoerli: {
-      dai: '0xd0B806F06E77157c3f39182A2C0b4C05A33D84a5',
-      allyu: '0xdbf20E8AaA24660fb4e566d5D6FF47E726E5B13b'
+    optimism: {
+      dai: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',
+      allyu: '0x8710b2Ae18233383ABBA6AfC17aD6177BDc958a1'
     }
   }
 })

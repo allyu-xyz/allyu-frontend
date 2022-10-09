@@ -7,7 +7,7 @@ import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
-  [chain.goerli, chain.polygonMumbai],
+  [chain.goerli, chain.polygonMumbai, chain.optimism],
   [infuraProvider({ apiKey: INFURA_ID }), publicProvider()]
 )
 
