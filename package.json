@@ -9,8 +9,6 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "typecheck": "tsc --pretty --noEmit",
-    "typechain": "typechain --target ethers-v5 --out-dir src/contracts './src/abi/*.json'",
-    "postinstall": "typechain --target ethers-v5 --out-dir src/contracts './src/abi/*.json'",
     "eth-sdk": "eth-sdk -p ./src/eth-sdk"
   },
   "dependencies": {
