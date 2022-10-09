@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getBillImage } from 'utils/images'
+import { useProvider } from 'wagmi'
 import FundModal from '../../components/bill/FundModal'
 import RedeemModal from '../../components/bill/RedeemModal'
 import Button from '../../components/ui/Button'
@@ -20,6 +21,7 @@ const BillPage: NextPage = () => {
   const [isFundModalOpen, setIsFundModalOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const provider = useProvider()
 
   useEffect(() => {
     const fetch = async () => {
@@ -114,7 +116,9 @@ const BillPage: NextPage = () => {
             </div>
             <div className="flex justify-center">
               <div className="relative aspect-[2.44] w-full">
-                <Image src={getBillImage(bill.value as BillValue)} alt="bill" layout="fill" />
+                {bill.value && (
+                  <Image src={getBillImage(bill.value as BillValue)} alt="bill" layout="fill" />
+                )}
               </div>
             </div>
             <div></div>

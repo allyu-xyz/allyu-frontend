@@ -1,6 +1,10 @@
 import { defineConfig } from '@dethcrypto/eth-sdk'
 
 export default defineConfig({
+  rpc: {
+    polygonMumbai: 'https://polygon-testnet.public.blastapi.io',
+    optimism: 'https://mainnet.optimism.io'
+  },
   contracts: {
     goerli: {
       dai: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844',
