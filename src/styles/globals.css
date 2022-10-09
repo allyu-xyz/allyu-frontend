@@ -27,5 +27,17 @@ a {
 
 /*  todo: setup styling */
 @tailwind base;
+@layer base {
+  html,
+  body {
+    @apply h-full w-full bg-orange font-primary font-normal text-black;
+    @apply selection:bg-blue selection:text-white;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
 @tailwind components;
 @tailwind utilities;

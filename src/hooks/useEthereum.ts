@@ -9,6 +9,7 @@ export default function useEthereum() {
   const { dai, allyu } = getGoerliSdk(signerOrProvider)
 
   return {
+    isConnected: !!signerOrProvider,
     dai,
     allyu
   }
