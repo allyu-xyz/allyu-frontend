@@ -7,12 +7,12 @@ import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
-  [chain.goerli],
+  [chain.goerli, chain.polygonMumbai],
   [infuraProvider({ apiKey: INFURA_ID }), publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'Allyu',
   chains
 })
 

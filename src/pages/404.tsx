@@ -12,9 +12,9 @@ const NotFound: NextPage = () => {
       </Head>
       <div className="flex items-center">
         <div className="container-content pt-36">
-          <div className="grid text-center">
+          <div className="grid text-center font-secondary">
             <h1 className="text-[200px] leading-none">404</h1>
-            <p className="mb-6 text-3xl">Page not found</p>
+            <p className="mb-6 text-2xl">Page not found</p>
             <Link href="/">
               <a>
                 <Button>Go home</Button>

@@ -10,3 +10,9 @@ export function isValidAmount(amount: BigNumberish | undefined): boolean {
     return false
   }
 }
+
+export function formatNumber(amount: BigNumberish): string {
+  return BigNumber.from(amount)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}

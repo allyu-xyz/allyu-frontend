@@ -12,7 +12,7 @@ const InternalError: NextPage = () => {
       </Head>
       <div className="flex items-center">
         <div className="container-content pt-36">
-          <div className="grid text-center">
+          <div className="grid text-center font-secondary">
             <h1 className="text-[200px] leading-none">500</h1>
             <p className="mb-6 text-3xl">Something went wrong</p>
           </div>

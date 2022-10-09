@@ -59,6 +59,10 @@ export default function FundModal({
       const codeHash = `0x${hash(code)}`
 
       const balance = await dai.balanceOf(address)
+      if (balance.lt(bill.value)) {
+        throw new Error('Insufficient funds inDai')
+      }
+
       const daiRes = await dai.approve(allyu.address, balance)
       await daiRes.wait()
 
@@ -71,8 +75,10 @@ export default function FundModal({
         maxFeePerGas: maxFeePerGas?.add(1000000000),
         maxPriorityFeePerGas: maxPriorityFeePerGas?.add(1000000000)
       })
+
       const transaction = await res.wait()
       setTransaction(transaction)
+
       setBill({ ...bill, isFunded: true })
       setIsSuccess(true)
       if (containerRef.current) {
