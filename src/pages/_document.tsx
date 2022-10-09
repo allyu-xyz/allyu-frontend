@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&family=Mulish:wght@400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,700;1,300&family=Londrina+Solid:wght@100;300;400;900&family=Mulish:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
         <meta property="og:title" content="Allyu" />

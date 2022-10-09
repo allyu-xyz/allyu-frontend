@@ -13,12 +13,16 @@
     "prepare": "eth-sdk -p ./src/eth-sdk"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
+    "@headlessui/tailwindcss": "^0.1.1",
     "@rainbow-me/rainbowkit": "^0.7.1",
     "ethers": "^5.7.1",
+    "keccak256": "^1.0.6",
     "next": "12.3.1",
     "party-js": "^2.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
     "wagmi": "^0.6.8"
   },
   "devDependencies": {

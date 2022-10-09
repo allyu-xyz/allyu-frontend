@@ -3,7 +3,7 @@ module.exports = {
   content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      primary: ['Londrina Solid', 'sans-serif'],
+      primary: ['Libre Franklin', 'sans-serif'],
       secondary: ['Londrina Solid', 'sans-serif']
     },
     colors: {
@@ -44,7 +44,23 @@ module.exports = {
       },
       purple: '#71458E'
     },
-    extend: {}
+    extend: {
+      transitionDuration: {
+        350: '350ms'
+      },
+      transitionTimingFunction: {
+        'rk-easing': 'cubic-bezier(.15, 1.15, 0.6, 1.00)'
+      },
+      animation: {
+        'pulse-slow': 'pulse-slow 5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+      },
+      keyframes: {
+        'pulse-slow': {
+          '0%, 100%': { opacity: 0.5 },
+          '50%': { opacity: 0.2 }
+        }
+      }
+    }
   },
-  plugins: []
+  plugins: [require('@headlessui/tailwindcss')]
 }

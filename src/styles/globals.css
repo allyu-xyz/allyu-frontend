@@ -2,7 +2,7 @@
 @layer base {
   html,
   body {
-    @apply h-full w-full bg-orange font-primary font-normal text-black;
+    @apply h-full w-full bg-orange font-primary text-base font-normal text-black;
     @apply selection:bg-blue selection:text-white;
   }
 
