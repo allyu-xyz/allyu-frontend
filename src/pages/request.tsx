@@ -69,7 +69,7 @@ const Request: NextPage = () => {
       </Head>
       <main>
         <div className=" container-content flex items-center justify-center pt-20">
-          <div className="grid w-full max-w-[600px] gap-2 text-center">
+          <div className="grid w-full max-w-[600px] gap-2 pb-16 text-center">
             <Component {...props} />
           </div>
         </div>

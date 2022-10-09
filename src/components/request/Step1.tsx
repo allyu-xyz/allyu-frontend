@@ -1,9 +1,17 @@
-import bill from 'assets/bill.png'
 import Image from 'next/image'
 import { RequestProps } from 'pages/request'
+import { BillValue } from 'types/types'
+import { getBillImage } from 'utils/images'
 
 export default function Step1(props: RequestProps) {
-  const options = ['5', '10', '20', '50', '100', '500']
+  const options = [
+    BillValue.Five,
+    BillValue.Ten,
+    BillValue.Twenty,
+    BillValue.Fifty,
+    BillValue.OneHundred,
+    BillValue.FiveHundred
+  ]
 
   return (
     <div className="grid w-full gap-8">
@@ -12,14 +20,19 @@ export default function Step1(props: RequestProps) {
         {options.map((option, i) => (
           <div
             key={`opt_${i}`}
-            className="cursor-pointer"
+            className="group cursor-pointer"
             onClick={() => {
               props.setData({ ...props.data, amountPerBill: option })
               props.setStep(props.step + 1)
             }}
           >
-            <div className="relative h-[115px] w-full">
-              <Image src={bill} alt={`$${option} bill`} layout="fill" objectFit="cover" />
+            <div className="relative h-[115px] w-full overflow-hidden transition-transform lg:group-hover:-translate-y-1">
+              <Image
+                src={getBillImage(option)}
+                alt={`$${option} bill`}
+                layout="fill"
+                objectFit="cover"
+              />
             </div>
           </div>
         ))}

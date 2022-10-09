@@ -38,7 +38,7 @@ export default function Step3(props: RequestProps) {
 
   return (
     <div className="grid gap-6">
-      <div className="grid gap-4">
+      <div className="grid gap-4 font-secondary">
         <div className="text-9xl">${totalAmount}</div>
         <div className="text-3xl">{`${numberOfBills} bills of $${amountPerBill}`}</div>
       </div>

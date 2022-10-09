@@ -27,7 +27,7 @@ export default function Step2(props: RequestProps) {
         <Input
           onChange={onChange}
           value={props.data.numberOfBills}
-          className="border-b-2 border-dotted border-black pb-1 text-center text-6xl"
+          className="border-b-2 border-dotted border-black pb-1 text-center font-secondary text-6xl"
         />
       </div>
       <div>

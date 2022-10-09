@@ -25,3 +25,12 @@ export interface Event {
   billId: string
   type: EventType
 }
+
+export enum BillValue {
+  Five = '5',
+  Ten = '10',
+  Twenty = '20',
+  Fifty = '50',
+  OneHundred = '100',
+  FiveHundred = '500'
+}

@@ -1,4 +1,3 @@
-import bill from 'assets/bill.png'
 import Button from 'components/ui/Button'
 import { ETHERSCAN_URL } from 'config'
 import Image from 'next/image'
@@ -6,13 +5,16 @@ import { RequestProps } from 'pages/request'
 import party from 'party-js'
 import type { DynamicSourceType } from 'party-js/lib/systems/sources'
 import { useEffect, useRef } from 'react'
+import { BillValue } from 'types/types'
+import { getBillImage } from 'utils/images'
 
 export default function Step4(props: RequestProps) {
-  const { numberOfBills } = props.data
+  const { numberOfBills, amountPerBill } = props.data
 
   const billsArray = new Array(parseInt(numberOfBills)).fill('')
   const txLink = `${ETHERSCAN_URL}/tx/${props.transaction?.transactionHash}`
   const particlesRef = useRef<HTMLDivElement>(null)
+  const billImage = getBillImage(amountPerBill as BillValue)
 
   useEffect(() => {
     if (particlesRef.current) {
@@ -39,7 +41,7 @@ export default function Step4(props: RequestProps) {
       <div className="grid grid-cols-2 gap-4">
         {billsArray.map((_, i) => (
           <div key={`img_bill_${i}`} className="relative h-[120px] w-full">
-            <Image src={bill} alt="" layout="fill" />
+            <Image src={billImage} alt="" layout="fill" />
           </div>
         ))}
       </div>
