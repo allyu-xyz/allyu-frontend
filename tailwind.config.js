@@ -3,22 +3,22 @@ module.exports = {
   content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      primary: ['Mulish', 'sans-serif'],
-      secondary: ['Londrina Solid', 'cursive']
+      primary: ['Londrina Solid', 'sans-serif'],
+      secondary: ['Londrina Solid', 'sans-serif']
     },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      primary: '#AAED4A',
+      primary: '#3B8CF0',
       orange: '#FFA62B',
       violet: '#210535',
-      black: '#12021D',
+      black: '#000505',
       green: {
         DEFAULT: '#AAED4A',
         25: '#353A2D'
       },
       red: {
-        DEFAULT: '#EF466F',
+        DEFAULT: '#EE6055',
         25: '#491331'
       },
       wgb: {
@@ -30,7 +30,7 @@ module.exports = {
       },
       blue: {
         DEFAULT: '#3772FF',
-        25: '#1B1E55'
+        50: '#1B7AEE'
       },
       white: {
         DEFAULT: '#FEFEFE',

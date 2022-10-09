@@ -21,12 +21,13 @@ export default function Step3(props: RequestProps) {
       }
 
       setIsLoading(true)
-      const amountToSend = BigNumber.from(numberOfBills).add(props.fee)
+      const amountToSend = BigNumber.from(numberOfBills).mul(props.fee)
       const response = await allyu.requestBills(amountPerBill, numberOfBills, {
         value: amountToSend
       })
 
-      await response.wait()
+      const transaction = await response.wait()
+      props.setTransaction(transaction)
       props.setStep(props.step + 1)
     } catch (e) {
       console.error(e)
@@ -36,15 +37,14 @@ export default function Step3(props: RequestProps) {
   }
 
   return (
-    <div>
-      <h2>Confirm your request</h2>
-      <div>
-        <div>${totalAmount}</div>
-        <div>{`${numberOfBills} bills of $${amountPerBill}`}</div>
+    <div className="grid gap-6">
+      <div className="grid gap-4">
+        <div className="text-9xl">${totalAmount}</div>
+        <div className="text-3xl">{`${numberOfBills} bills of $${amountPerBill}`}</div>
       </div>
       <div>
-        <Button onClick={onClick}>Confirm request</Button>
-        {error && <div>{error}</div>}
+        <Button onClick={onClick}>{isLoading ? 'Loading...' : 'Confirm request'}</Button>
+        {error && <div className="pt-3 text-red">{error}</div>}
       </div>
     </div>
   )

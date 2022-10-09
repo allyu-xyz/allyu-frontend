@@ -2,7 +2,7 @@ import Step1 from 'components/request/Step1'
 import Step2 from 'components/request/Step2'
 import Step3 from 'components/request/Step3'
 import Step4 from 'components/request/Step4'
-import { BigNumberish } from 'ethers'
+import { BigNumberish, ContractReceipt } from 'ethers'
 import useEthereum from 'hooks/useEthereum'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -27,11 +27,14 @@ export interface RequestProps {
   setStep: (step: Steps) => void
   data: RequestData
   setData: (data: RequestData) => void
+  transaction: ContractReceipt | undefined
+  setTransaction: (tx: ContractReceipt) => void
 }
 
 const Request: NextPage = () => {
   const { allyu, isConnected } = useEthereum()
   const [fee, setFee] = useState<BigNumberish | undefined>()
+  const [transaction, setTransaction] = useState<ContractReceipt | undefined>()
   const [step, setStep] = useState(Steps.Step1)
   const [data, setData] = useState<RequestData>({
     amountPerBill: '',
@@ -55,7 +58,7 @@ const Request: NextPage = () => {
     [Steps.Step4]: Step4
   }
 
-  const props: RequestProps = { fee, data, setData, step, setStep }
+  const props: RequestProps = { fee, data, setData, step, setStep, transaction, setTransaction }
   const Component = stepsComponents[step]
 
   return (
@@ -65,12 +68,11 @@ const Request: NextPage = () => {
         <meta name="description" content="Request crypto cash" />
       </Head>
       <main>
-        {step > 1 && (
-          <div onClick={() => setStep(step - 1)} className="cursor-pointer">
-            {'Go back'}
+        <div className=" container-content flex items-center justify-center pt-20">
+          <div className="grid w-full max-w-[600px] gap-2 text-center">
+            <Component {...props} />
           </div>
-        )}
-        <Component {...props} />
+        </div>
       </main>
     </>
   )
