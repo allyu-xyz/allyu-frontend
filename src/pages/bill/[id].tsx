@@ -1,52 +1,32 @@
 import useEthereum from 'hooks/useEthereum'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { getBillImage } from 'utils/images'
 import FundModal from '../../components/bill/FundModal'
 import RedeemModal from '../../components/bill/RedeemModal'
 import Button from '../../components/ui/Button'
 import Loading from '../../components/ui/Loading'
-import { Bill, BillStatus } from '../../types/types'
+import { Bill, BillStatus, BillValue } from '../../types/types'
 
 const BillPage: NextPage = () => {
   const router = useRouter()
   const { isConnected, allyu } = useEthereum()
   const { id: billId } = router.query
-  const [bill, setBill] = useState<Bill | null>(null) // todo: uncomment
-  const [billEvents, setBillEvents] = useState([])
+  const [bill, setBill] = useState<Bill | null>(null)
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false)
   const [isFundModalOpen, setIsFundModalOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-
-  // todo: delete
-  // const bill: Bill = {
-  //   id: '2',
-  //   value: '5',
-  //   wordHash: '0x123',
-  //   codeHash: '123',
-  //   isFunded: true,
-  //   isRedeemed: false
-  // }
 
   useEffect(() => {
     const fetch = async () => {
       if (!billId || typeof billId !== 'string' || !isConnected) return
 
       try {
-        // todo: uncomment
         const data = await allyu.getOneBillFromBillId(billId)
-        console.log(data)
-        // todo: uncomment
-        // console.log({
-        //   id: data.id.toString(),
-        //   value: data.value.toString(),
-        //   wordHash: data.wordHash,
-        //   codeHash: data.codeHash,
-        //   isFunded: data.isFunded,
-        //   isRedeemed: data.isRedeemed
-        // })
         setBill({
           id: data.id.toString(),
           value: data.value.toString(),
@@ -93,9 +73,21 @@ const BillPage: NextPage = () => {
   }
 
   const statusButtons = {
-    [BillStatus.Unfunded]: <Button onClick={() => setIsFundModalOpen(true)}>Fund bill</Button>,
-    [BillStatus.Funded]: <Button onClick={() => setIsRedeemModalOpen(true)}>Redeem bill</Button>,
-    [BillStatus.Redeemed]: <Button disabled={true}>Bill redeemed</Button>
+    [BillStatus.Unfunded]: (
+      <Button className="w-[150px]" onClick={() => setIsFundModalOpen(true)}>
+        Fund bill
+      </Button>
+    ),
+    [BillStatus.Funded]: (
+      <Button className="w-[150px]" onClick={() => setIsRedeemModalOpen(true)}>
+        Redeem bill
+      </Button>
+    ),
+    [BillStatus.Redeemed]: (
+      <Button className="w-[150px]" disabled={true}>
+        Bill redeemed
+      </Button>
+    )
   }
 
   const status = getStatus()
@@ -105,17 +97,27 @@ const BillPage: NextPage = () => {
       <Head>
         <title>{`Bill #${billId}`}</title>
       </Head>
-      <main>
-        <div className="container-content">
-          <div className="flex items-center justify-between py-3 text-xl">
-            <div>Bill #{bill.id}</div>
-            <div className={`select-none border-2 border-dashed py-1 px-3 ${statusStyles[status]}`}>
-              {status}
+      <main className="mb-[80px] flex flex-1 flex-col items-center justify-center">
+        <div className="container-content max-w-[480px]">
+          <div className="grid gap-12">
+            <div className="grid items-center gap-8 text-center">
+              <div className="flex items-center justify-between font-secondary ">
+                <div className="text-2xl">Bill #{bill.id}</div>
+                <div
+                  className={`select-none border-2 border-dashed py-1 px-3 text-xl ${statusStyles[status]}`}
+                >
+                  {status}
+                </div>
+              </div>
+              <h1 className="font-secondary text-8xl">${bill.value}</h1>
+              <div>{statusButtons[status]}</div>
             </div>
-          </div>
-          <div className="grid items-center gap-6 text-center">
-            <h1 className="font-secondary text-8xl">${bill.value}</h1>
-            <div>{statusButtons[status]}</div>
+            <div className="flex justify-center">
+              <div className="relative aspect-[2.44] w-full">
+                <Image src={getBillImage(bill.value as BillValue)} alt="bill" layout="fill" />
+              </div>
+            </div>
+            <div></div>
           </div>
         </div>
         <FundModal bill={bill} isOpen={isFundModalOpen} setIsOpen={setIsFundModalOpen} />

@@ -1,6 +1,8 @@
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import Modal from 'components/ui/Modal'
+import { ETHERSCAN_URL } from 'config'
+import { ContractReceipt } from 'ethers'
 import useEthereum from 'hooks/useEthereum'
 import party from 'party-js'
 import type { DynamicSourceType } from 'party-js/lib/systems/sources'
@@ -24,6 +26,7 @@ export default function FundModal({
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [transaction, setTransaction] = useState<ContractReceipt | undefined>()
   const { address } = useAccount()
   const { data: balance } = useBalance({
     addressOrName: address
@@ -53,7 +56,11 @@ export default function FundModal({
       const codeHash = `0x${hash(code)}`
 
       await dai.approve(address, bill.value)
-      await allyu.fund(bill.id, bill.value, codeHash)
+      const res = await allyu.fund(bill.id, bill.value, codeHash, {
+        gasLimit: 1000000 // todo: remove
+      })
+      const transaction = await res.wait()
+      setTransaction(transaction)
 
       setIsSuccess(true)
       if (containerRef.current) {
@@ -95,7 +102,7 @@ export default function FundModal({
         <Button onClick={handleSubmit} className="w-full">
           {isLoading ? 'Loading...' : 'Submit'}
         </Button>
-        <p className="mt-3 text-center text-sm font-bold text-red">{error}</p>
+        {error && <p className="mt-3 text-center text-sm font-bold text-red">{error}</p>}
       </div>
     </div>
   )
@@ -110,6 +117,15 @@ export default function FundModal({
         </p>
       </div>
       <div className="text-center font-secondary text-6xl">{code}</div>
+      <div>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={`${ETHERSCAN_URL}/tx/${transaction?.transactionHash}`}
+        >
+          <Button className="w-full">View transaction</Button>
+        </a>
+      </div>
     </div>
   )
 
