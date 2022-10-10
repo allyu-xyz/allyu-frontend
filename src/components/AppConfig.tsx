@@ -1,7 +1,7 @@
 import { getDefaultWallets, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { INFURA_ID } from 'config'
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
@@ -57,7 +57,8 @@ const customTheme = {
     walletLogo: 'none'
   }
 }
-export default function AppConfig({ children }: { children: ReactElement }) {
+
+export default function AppConfig({ children }: { children: ReactNode }) {
   return (
     <WagmiConfig client={client}>
       <RainbowKitProvider chains={chains} theme={customTheme} modalSize="compact">
