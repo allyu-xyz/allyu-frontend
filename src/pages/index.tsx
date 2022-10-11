@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     setIsMounted(true)
     const interval = setInterval(() => {
-      if (Math.random() > 0.4) {
+      if (Math.random() > 0.5) {
         setCount((prev) => prev + 1)
       }
     }, 1000)
@@ -49,7 +49,7 @@ const BillsGrid = ({ count }: { count: number }) => {
   const rowsContainer = useRef<HTMLDivElement>(null)
   const rows = 6
   const columns = 6
-  const rowHeight = '132'
+  const rowHeight = 132
   const rowPositions = ['0', '-220', '-10', '-300', '-100', '-200']
 
   const billValues = [
@@ -134,13 +134,10 @@ const BillsGrid = ({ count }: { count: number }) => {
   return (
     <div ref={rowsContainer} className=" grid gap-4 overflow-hidden pb-20">
       {randomBills.map((row, i) => (
-        <div key={`row-${i}`} className={`relative h-[${rowHeight}px]`}>
+        <div key={`row-${i}`} className={`relative h-[132px]`}>
           <div className={`absolute flex items-center`}>
             {row.map((col, j) => (
-              <div
-                key={`bill_${i}_${j}`}
-                className={`m3-4 relative mr-4 aspect-[2.44] h-[${rowHeight}px]`}
-              >
+              <div key={`bill_${i}_${j}`} className={`m3-4 relative mr-4 aspect-[2.44] h-[132px]`}>
                 {<Image src={getBillImage(col)} alt="" layout="fill" />}
               </div>
             ))}
